@@ -6,6 +6,8 @@ using MediaBrowser.Controller.Net;
 using MediaBrowser.Model.Logging;
 using MediaBrowser.Model.Services;
 using MediaBrowser.Plugins.PushOverNotifications.Configuration;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace MediaBrowser.Plugins.PushOverNotifications.Api
 {
@@ -32,7 +34,14 @@ namespace MediaBrowser.Plugins.PushOverNotifications.Api
                 .FirstOrDefault(i => string.Equals(i.MediaBrowserUserId, userID, StringComparison.OrdinalIgnoreCase));
         }
 
-        public object Post(TestNotification request)
+        public void Post(TestNotification request)
+        {
+            var task = PostAsync(request);
+
+            Task.WaitAll(task);
+        }
+
+        private async Task PostAsync(TestNotification request)
         {
             var options = GetOptions(request.UserID);
 
@@ -46,7 +55,18 @@ namespace MediaBrowser.Plugins.PushOverNotifications.Api
 
             _logger.Debug("Pushover <TEST> to {0} - {1}", options.Token, options.UserKey);
 
-            return _httpClient.Post(new HttpRequestOptions { Url = "https://api.pushover.net/1/messages.json" }, parameters);
+            var httpRequestOptions = new HttpRequestOptions
+            {
+                Url = "https://api.pushover.net/1/messages.json",
+                CancellationToken = CancellationToken.None
+            };
+
+            httpRequestOptions.SetPostData(parameters);
+
+            using (await _httpClient.Post(httpRequestOptions).ConfigureAwait(false))
+            {
+
+            }
         }
     }
 }

@@ -40,7 +40,7 @@ namespace MediaBrowser.Plugins.PushOverNotifications
             get { return Plugin.Instance.Name; }
         }
 
-        public Task SendNotification(UserNotification request, CancellationToken cancellationToken)
+        public async Task SendNotification(UserNotification request, CancellationToken cancellationToken)
         {
             var options = GetOptions(request.User);
 
@@ -66,7 +66,18 @@ namespace MediaBrowser.Plugins.PushOverNotifications
 
             _logger.Debug("PushOver to Token : {0} - {1} - {2}", options.Token, options.UserKey, request.Description);
 
-            return _httpClient.Post("https://api.pushover.net/1/messages.json", parameters, cancellationToken);
+            var httpRequestOptions = new HttpRequestOptions
+            {
+                Url = "https://api.pushover.net/1/messages.json",
+                CancellationToken = cancellationToken
+            };
+
+            httpRequestOptions.SetPostData(parameters);
+
+            using (await _httpClient.Post(httpRequestOptions).ConfigureAwait(false))
+            {
+
+            }
         }
 
         private bool IsValid(PushOverOptions options)
