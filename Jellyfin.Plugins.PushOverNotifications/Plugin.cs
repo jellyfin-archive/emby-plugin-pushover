@@ -8,12 +8,12 @@ using MediaBrowser.Plugins.PushOverNotifications.Configuration;
 using System.IO;
 using MediaBrowser.Model.Drawing;
 
-namespace MediaBrowser.Plugins.PushOverNotifications
+namespace Jellyfin.Plugins.PushOverNotifications
 {
     /// <summary>
     /// Class Plugin
     /// </summary>
-    public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages, IHasThumbImage
+    public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
     {
         public Plugin(IApplicationPaths applicationPaths, IXmlSerializer xmlSerializer)
             : base(applicationPaths, xmlSerializer)
