@@ -8,7 +8,7 @@ using MediaBrowser.Plugins.PushOverNotifications.Configuration;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace Jellyfin.Plugins.PushOverNotifications.Api
+namespace Jellyfin.Plugin.PushOverNotifications.Api
 {
     [Route("/Notification/Pushover/Test/{UserID}", "POST", Summary = "Tests Pushover")]
     public class TestNotification : IReturnVoid
