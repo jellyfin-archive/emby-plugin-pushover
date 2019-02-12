@@ -3,7 +3,7 @@ using MediaBrowser.Common.Net;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Notifications;
 using Microsoft.Extensions.Logging;
-using MediaBrowser.Plugins.PushOverNotifications.Configuration;
+using Jellyfin.Plugin.PushOverNotifications.Configuration;
 using System;
 using System.Linq;
 using System.Threading;

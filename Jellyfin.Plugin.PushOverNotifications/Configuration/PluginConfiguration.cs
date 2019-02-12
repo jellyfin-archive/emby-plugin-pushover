@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MediaBrowser.Model.Plugins;
 
-namespace MediaBrowser.Plugins.PushOverNotifications.Configuration
+namespace Jellyfin.Plugin.PushOverNotifications.Configuration
 {
     /// <summary>
     /// Class PluginConfiguration

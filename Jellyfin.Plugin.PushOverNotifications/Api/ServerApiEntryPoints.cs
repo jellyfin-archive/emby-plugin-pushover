@@ -4,7 +4,7 @@ using System.Linq;
 using MediaBrowser.Common.Net;
 using Microsoft.Extensions.Logging;
 using MediaBrowser.Model.Services;
-using MediaBrowser.Plugins.PushOverNotifications.Configuration;
+using Jellyfin.Plugin.PushOverNotifications.Configuration;
 using System.Threading.Tasks;
 using System.Threading;
 
@@ -20,11 +20,11 @@ namespace Jellyfin.Plugin.PushOverNotifications.Api
     class ServerApiEndpoints : IService
     {
         private readonly IHttpClient _httpClient;
-        private readonly ILogger _logger;
+        private readonly ILogger IloggerFactory;
 
         public ServerApiEndpoints(ILoggerFactory logManager, IHttpClient httpClient)
         {
-            _logger = logManager.CreateLogger(GetType().Name);
+            IloggerFactory = logManager.CreateLogger(GetType().Name);
             _httpClient = httpClient;
         }
         private PushOverOptions GetOptions(String userID)
@@ -52,7 +52,7 @@ namespace Jellyfin.Plugin.PushOverNotifications.Api
                 {"message", "This is a test notification from Jellyfin"}
             };
 
-            _logger.LogDebug("Pushover <TEST> to {0} - {1}", options.Token, options.UserKey);
+            IloggerFactory.LogDebug("Pushover <TEST> to {0} - {1}", options.Token, options.UserKey);
 
             var httpRequestOptions = new HttpRequestOptions
             {
