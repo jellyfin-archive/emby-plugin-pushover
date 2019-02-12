@@ -8,7 +8,7 @@ using Jellyfin.Plugin.PushOverNotifications.Configuration;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace Jellyfin.Plugin.PushOverNotifications.Api
+namespace Jellyfin.Plugins.PushOverNotifications.Api
 {
     [Route("/Notification/Pushover/Test/{UserID}", "POST", Summary = "Tests Pushover")]
     public class TestNotification : IReturnVoid
