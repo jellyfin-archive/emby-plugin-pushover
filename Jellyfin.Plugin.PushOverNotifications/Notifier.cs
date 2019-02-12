@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Jellyfin.Plugins.PushOverNotifications
+namespace Jellyfin.Plugin.PushOverNotifications
 {
     public class Notifier : INotificationService
     {

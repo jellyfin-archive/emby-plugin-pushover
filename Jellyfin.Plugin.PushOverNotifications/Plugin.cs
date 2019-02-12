@@ -8,7 +8,7 @@ using Jellyfin.Plugin.PushOverNotifications.Configuration;
 using System.IO;
 using MediaBrowser.Model.Drawing;
 
-namespace Jellyfin.Plugins.PushOverNotifications
+namespace Jellyfin.Plugin.PushOverNotifications
 {
     /// <summary>
     /// Class Plugin
