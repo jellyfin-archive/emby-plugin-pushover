@@ -18,7 +18,7 @@ namespace Jellyfin.Plugin.PushOverNotifications
 
         public Notifier(ILoggerFactory logManager, IHttpClient httpClient)
         {
-            _logger = logManager.CreateLogger(GetType().Name);
+            _logger = logManager.CreateLogger("Pushover Plugin");
             _httpClient = httpClient;
         }
 
