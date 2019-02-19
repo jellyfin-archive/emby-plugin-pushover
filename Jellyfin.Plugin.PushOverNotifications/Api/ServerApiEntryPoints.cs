@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using MediaBrowser.Common.Net;
-using MediaBrowser.Controller.Net;
-using MediaBrowser.Model.Logging;
+using Microsoft.Extensions.Logging;
 using MediaBrowser.Model.Services;
-using MediaBrowser.Plugins.PushOverNotifications.Configuration;
+using Jellyfin.Plugin.PushOverNotifications.Configuration;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace MediaBrowser.Plugins.PushOverNotifications.Api
+namespace Jellyfin.Plugin.PushOverNotifications.Api
 {
     [Route("/Notification/Pushover/Test/{UserID}", "POST", Summary = "Tests Pushover")]
     public class TestNotification : IReturnVoid
@@ -21,11 +20,11 @@ namespace MediaBrowser.Plugins.PushOverNotifications.Api
     class ServerApiEndpoints : IService
     {
         private readonly IHttpClient _httpClient;
-        private readonly ILogger _logger;
+        private readonly ILogger IloggerFactory;
 
-        public ServerApiEndpoints(ILogManager logManager, IHttpClient httpClient)
+        public ServerApiEndpoints(ILoggerFactory logManager, IHttpClient httpClient)
         {
-            _logger = logManager.GetLogger(GetType().Name);
+            IloggerFactory = logManager.CreateLogger(GetType().Name);
             _httpClient = httpClient;
         }
         private PushOverOptions GetOptions(String userID)
@@ -50,10 +49,10 @@ namespace MediaBrowser.Plugins.PushOverNotifications.Api
                 {"token", options.Token},
                 {"user", options.UserKey},
                 {"title", "Test Notification" },
-                {"message", "This is a test notification from MediaBrowser"}
+                {"message", "This is a test notification from Jellyfin"}
             };
 
-            _logger.Debug("Pushover <TEST> to {0} - {1}", options.Token, options.UserKey);
+            IloggerFactory.LogDebug("Pushover <TEST> to {0} - {1}", options.Token, options.UserKey);
 
             var httpRequestOptions = new HttpRequestOptions
             {
